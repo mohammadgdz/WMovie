@@ -8,32 +8,55 @@
 import SwiftUI
 
 protocol Coordinator {
-    func push(_ page: Pages)
+    func push(_ page: Pages, for tab: Tabs)
     func present(_ sheet: Sheets)
-    func pop()
-    func popToRoot()
+    func pop(for tab: Tabs)
+    func popToRoot(for tab: Tabs)
     func dismissSheet()
 }
 
 final class MainCoordinator: ObservableObject, Coordinator {
-    @Published var path = NavigationPath()
+    @Published var moviePath = NavigationPath()
+    @Published var seriesPath = NavigationPath()
+    @Published var settingsPath = NavigationPath()
+
     @Published var sheet: Sheets?
-    @Published var pages: Pages?
     
-    func push(_ page: Pages) {
-        path.append(page)
+    func push(_ page: Pages, for tab: Tabs) {
+        switch tab {
+        case .movies:
+            moviePath.append(page)
+        case .series:
+            seriesPath.append(page)
+        case .settings:
+            settingsPath.append(page)
+        }
+    }
+    
+    func pop(for tab: Tabs) {
+        switch tab {
+        case .movies:
+            moviePath.removeLast()
+        case .series:
+            seriesPath.removeLast()
+        case .settings:
+            settingsPath.removeLast()
+        }
+    }
+    
+    func popToRoot(for tab: Tabs) {
+        switch tab {
+        case .movies:
+            moviePath.removeLast(moviePath.count)
+        case .series:
+            seriesPath.removeLast(seriesPath.count)
+        case .settings:
+            settingsPath.removeLast(settingsPath.count)
+        }
     }
     
     func present(_ sheet: Sheets) {
         self.sheet = sheet
-    }
-    
-    func pop() {
-        path.removeLast()
-    }
-    
-    func popToRoot() {
-        path.removeLast(path.count)
     }
     
     func dismissSheet() {

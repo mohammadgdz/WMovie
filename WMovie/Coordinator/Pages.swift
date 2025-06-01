@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum Tabs {
+    case movies, series, settings
+}
+
 enum Pages: String, Identifiable {
     case login,
          createAccount,

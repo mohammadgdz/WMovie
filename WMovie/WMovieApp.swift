@@ -12,7 +12,7 @@ import SwiftData
 struct WMovieApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainCoordinatorView()
         }
     }
 }
