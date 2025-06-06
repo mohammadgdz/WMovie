@@ -18,7 +18,7 @@ protocol Coordinator {
 final class MainCoordinator: ObservableObject, Coordinator {
     @Published var moviePath = NavigationPath()
     @Published var seriesPath = NavigationPath()
-    @Published var settingsPath = NavigationPath()
+    @Published var profilePath = NavigationPath()
 
     @Published var sheet: Sheets?
     
@@ -29,7 +29,7 @@ final class MainCoordinator: ObservableObject, Coordinator {
         case .series:
             seriesPath.append(page)
         case .settings:
-            settingsPath.append(page)
+            profilePath.append(page)
         }
     }
     
@@ -40,7 +40,7 @@ final class MainCoordinator: ObservableObject, Coordinator {
         case .series:
             seriesPath.removeLast()
         case .settings:
-            settingsPath.removeLast()
+            profilePath.removeLast()
         }
     }
     
@@ -51,7 +51,7 @@ final class MainCoordinator: ObservableObject, Coordinator {
         case .series:
             seriesPath.removeLast(seriesPath.count)
         case .settings:
-            settingsPath.removeLast(settingsPath.count)
+            profilePath.removeLast(profilePath.count)
         }
     }
     
